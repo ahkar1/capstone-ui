@@ -1,0 +1,7 @@
+{
+  "name": "paintballinvetory",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
