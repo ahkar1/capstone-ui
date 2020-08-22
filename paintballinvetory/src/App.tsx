@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, useParams } from 'react-router-dom';
 import {
   IonApp,
   IonIcon,
@@ -33,12 +33,16 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Guns from './pages/Guns';
+import Gun from './pages/SingleGun';
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          <Route path="/guns" component={Guns} exact={true} />
+          <Route path="/guns/:id" component={Gun} exact={false} />
           <Route path="/tab1" component={Tab1} exact={true} />
           <Route path="/tab2" component={Tab2} exact={true} />
           <Route path="/tab3" component={Tab3} />
