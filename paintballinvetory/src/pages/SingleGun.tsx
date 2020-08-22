@@ -12,7 +12,7 @@ interface SingleGunPageProps extends RouteComponentProps<{
   id: string;
 }> {}
 
-const URL = 'http://localhost:5000/api/guns/';
+const URL = 'http://paintballinventory-env.eba-yah5svs5.us-east-2.elasticbeanstalk.com/api/guns/';
 
 
 const fetchGun = (id: string) => {

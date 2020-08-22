@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonButton, IonLabel, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonButton, IonLabel, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonIcon, IonModal, IonList, IonInput, IonToggle, IonItemDivider, IonFabButton, IonFab } from '@ionic/react';
 import './Tab1.css';
 import axios from 'axios';
+import { Plugins, CameraResultType } from '@capacitor/core';
+import { addCircle, camera} from 'ionicons/icons';
 
-const API_KEY = 'YOUR_API_KEY';
-const URL = 'http://localhost:5000/api/guns';
-
+const URL = 'http://paintballinventory-env.eba-yah5svs5.us-east-2.elasticbeanstalk.com/api/guns';
+const { Camera } = Plugins;
 
 const fetchGuns = () => {
 
@@ -20,9 +21,14 @@ const fetchGuns = () => {
   })
 };
 
+
+
 const Guns: React.FC = () => {
 
     const [guns, setGuns] = React.useState([]);
+    const [photo, setPhoto] = React.useState<string>();
+    const [showModal, setShowModal] = React.useState(false);
+    const [text, setText] = React.useState<string>();
 
   React.useEffect(() => {
 
@@ -30,6 +36,17 @@ const Guns: React.FC = () => {
 
   }, []);
 
+  const takePicture = async () => {
+      console.log("Take Picture");
+    const image = await Camera.getPhoto({
+    quality: 90,
+    allowEditing: false,
+    resultType: CameraResultType.Uri
+    });
+    var imageUrl = image.webPath;
+    // Can be set to the src of an image now
+    setPhoto(imageUrl);
+    }
 
 let itemsToRender;
 if (guns) {
@@ -60,11 +77,41 @@ if (guns) {
         
          <IonGrid>
          <IonRow>
+         {itemsToRender}
+         </IonRow>
+         <IonRow>
+        <IonCol>
         
-        {itemsToRender}
+        <IonCardHeader>
+            <IonCardTitle>Add Gun</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+          <IonButton onClick={() => setShowModal(true)} color="primary" slot="end"><IonIcon slot="start" icon={addCircle} />Add</IonButton>
+           </IonCardContent>
+        </IonCol>
+        
         
       </IonRow>
       </IonGrid>
+      <IonModal isOpen={showModal} cssClass='my-custom-class'>
+      <IonList>
+      <IonItem>
+            <IonLabel position="floating">Gun Name</IonLabel>
+            <IonInput value={text}></IonInput>
+          </IonItem>
+          <IonItem>
+            <IonButton color="primary" onClick={() => takePicture()}>
+              <IonIcon slot="start" icon={camera} />Take Picture
+            </IonButton>
+       
+          </IonItem>
+          <IonItemDivider>Featured Gun</IonItemDivider>
+          <IonItem><IonToggle name="featured" checked color="primary" /></IonItem>
+          <IonButton href={'guns/'} color="primary" slot="end">Save</IonButton>
+          </IonList>
+        <IonButton onClick={() => setShowModal(false)}>Cancel</IonButton>
+      </IonModal>
+
       </IonContent>
 
     </IonPage>
