@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Plugins, CameraResultType } from '@capacitor/core';
 import { addCircle, camera} from 'ionicons/icons';
 
-const URL = 'http://paintballinventory-env.eba-yah5svs5.us-east-2.elasticbeanstalk.com/api/guns';
+const URL = 'https://paintballinventory.pupillogroup.com/api/guns';
 const { Camera } = Plugins;
 
 const fetchGuns = () => {
