@@ -1,5 +1,5 @@
 export interface Gun {
-    gun_id: number;
+    gun_id?: number;
     name: string;
     image: string;
     featured: boolean;

@@ -56,13 +56,14 @@ const SingleGun: React.FC <SingleGunPageProps> = ({match}) => {
           <IonRow>
 
             <IonCol><IonCard>
-              <img src={gun.image} />
+              <img src={gun.image} alt="Image Proccessing Not Working" />
               <IonCardHeader>
                 <IonCardSubtitle>{gun.date}</IonCardSubtitle>
                 <IonCardTitle>{gun.name}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
-                <IonButton href={'activity/' + gun.gun_id} color="primary" slot="end"><IonIcon slot="start" icon={addCircle} />Add Activity</IonButton>
+            <p>Link to Manual</p>
+            <IonButton href={'guns/'} color="primary" slot="end">Back to All Guns</IonButton>
               </IonCardContent>
             </IonCard>
             </IonCol>
